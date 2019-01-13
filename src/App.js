@@ -7,7 +7,7 @@ const PATH_SEARCH = '/search';
 const PARAM_SEARCH = 'query=';
 const PARAM_PAGE = 'page=';
 const PARAM_HPP = 'hitsPerPage=';
-const DEFAULT_HPP = '2';
+const DEFAULT_HPP = '10';
 
   
 class App extends Component {
@@ -18,6 +18,7 @@ class App extends Component {
       results: null,
       searchKey: '',
       searchTerm: DEFAULT_QUERY,
+      error: null,
 
     };
 
@@ -31,6 +32,13 @@ class App extends Component {
     this.onDismiss = this.onDismiss.bind(this);
 
   } 
+
+  fetchSearchTopStories(searchTerm, page = 0) {
+    fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}&${PARAM_PAGE}${page}&${PARAM_HPP}${DEFAULT_HPP}`)
+      .then(response => response.json())
+      .then(result => this.setSearchTopStories(result))
+      .catch(error => this.setState({ error }));
+  }
 
   needsToSearchTopStories(searchTerm) {
     return !this.state.results[searchTerm];
@@ -56,19 +64,12 @@ class App extends Component {
     });
   }
 
-  fetchSearchTopStories(searchTerm, page = 0) {
-    console.log(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}&${PARAM_PAGE}${page}&${PARAM_HPP}${DEFAULT_HPP}`);
-    fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}&${PARAM_PAGE}${page}&${PARAM_HPP}${DEFAULT_HPP}`)
-      .then(response => response.json())
-      .then(result => this.setSearchTopStories(result))
-      .catch(error => error);
-  }
-
   componentDidMount() {
     const { searchTerm } = this.state;
     this.setState({searchKey: searchTerm});
     this.fetchSearchTopStories(searchTerm);
   }
+
   onSearchSubmit(event) {
     const { searchTerm } = this.state;
     this.setState({searchKey: searchTerm});
@@ -110,7 +111,8 @@ class App extends Component {
     const { 
       searchTerm,
       results,
-      searchKey
+      searchKey,
+      error,
       } = this.state;
 
     const page = (
@@ -136,10 +138,15 @@ class App extends Component {
             Search
           </Search>
         </div>
-        <Table 
-          list={list} 
-          onDismiss={this.onDismiss} 
-        />
+        { error
+          ? <div className="interactions">
+              <p>Something went wrong.</p>
+            </div>
+          : <Table 
+              list={list} 
+              onDismiss={this.onDismiss} 
+            />
+        }
         <div className="interactions">
           <Button onClick={() => 
             this.fetchSearchTopStories(searchKey, page +1)}>
