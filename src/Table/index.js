@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from '../Buttons/index';
+import './index.css'
 
 const largeColumn = {
     width: '40%',

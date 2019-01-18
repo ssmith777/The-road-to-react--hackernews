@@ -2,13 +2,10 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import './index.css';
 
-
 // import our stateless components
 import Button from '../Buttons/index';
 import Table from '../Table/index';
 import Search from '../Search/index';
-
-
 
 // default constants
 import { 
@@ -20,7 +17,6 @@ import {
   PARAM_PAGE,
   PARAM_HPP
  } from '../constants';
-
 
   
 class App extends Component {
@@ -37,8 +33,6 @@ class App extends Component {
 
     };
 
-    //this.onSearchChange = this.onSearchChange.bind(this);
-    //this.onDismiss = this.onDismiss.bind(this);
     this.needsToSearchTopStories = this.needsToSearchTopStories.bind(this);
     this.setSearchTopStories = this.setSearchTopStories.bind(this);
     this.fetchSearchTopStories = this.fetchSearchTopStories.bind(this);
@@ -47,14 +41,6 @@ class App extends Component {
     this.onDismiss = this.onDismiss.bind(this);
 
   } 
-
-// Native fetch
-  // fetchSearchTopStories(searchTerm, page = 0) {
-  //   fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}&${PARAM_PAGE}${page}&${PARAM_HPP}${DEFAULT_HPP}`)
-  //     .then(response => response.json())
-  //     .then(result => this.setSearchTopStories(result))
-  //     .catch(error => this.setState({ error }));
-  // }
 
   // axios fetch
   fetchSearchTopStories(searchTerm, page = 0) {
@@ -182,59 +168,5 @@ class App extends Component {
     );
   }
 }
-
-// const Button = ({ onClick,className = '',children }) => 
-//   <button
-//     onClick={onClick}
-//     className={className}
-//     type="button">{children}
-//   </button>
-
-
-
-// const Search = ({value, onChange, onSubmit, children }) =>
-//   <form onSubmit={onSubmit}>
-//     <input
-//       type="text"
-//       value={value}
-//       onChange={onChange}
-//       />
-//       <button type="submit">
-//         {children}
-//       </button>
-//   </form>
-
-// const largeColumn = {
-//   width: '40%',
-// }
-
-// const midColumn = {
-//   width: '30%',
-// }
-
-// const smallColumn = {
-//   width: '10%'
-// }
-
-
-// const Table = ({ list, onDismiss }) =>
-//   <div className="table">
-//     {list.map(item =>
-//       <div key={item.objectID} className="table-row">
-//         <span style={{width: '40%' }}>
-//           <a href={item.url}>{item.title}</a>
-//         </span>
-//         <span style={largeColumn}>{item.author}</span>
-//         <span style={midColumn}>{item.num_comments}</span>
-//         <span style={smallColumn}>{item.points}</span>
-//         <span style={smallColumn}>
-//           <Button
-//             onClick={() => onDismiss(item.objectID)} className="button-inline">
-//             Dismiss
-//           </Button>
-//         </span>
-//       </div>
-//       )}
-//   </div>
 
 export default App; 
