@@ -171,6 +171,8 @@ class App extends Component {
 
 export default App; 
 
+
+// added for jest testing
 export {
   Button,
   Search,
