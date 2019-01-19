@@ -15,7 +15,8 @@ import {
   PATH_SEARCH,
   PARAM_SEARCH,
   PARAM_PAGE,
-  PARAM_HPP
+  PARAM_HPP,
+  Loading,
  } from '../constants';
 
   
@@ -30,7 +31,7 @@ class App extends Component {
       searchKey: '',
       searchTerm: DEFAULT_QUERY,
       error: null,
-
+      isLoading: false,
     };
 
     this.needsToSearchTopStories = this.needsToSearchTopStories.bind(this);
@@ -44,6 +45,8 @@ class App extends Component {
 
   // axios fetch
   fetchSearchTopStories(searchTerm, page = 0) {
+    this.setState({ isLoading: true});
+
     axios(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}&${PARAM_PAGE}${page}&${PARAM_HPP}${DEFAULT_HPP}`)
       .then(result => this._isMounted && this.setSearchTopStories(result.data))
       .catch(error => this._isMounted && this.setState({ error }));
@@ -69,7 +72,8 @@ class App extends Component {
     this.setState({
       results: {
         ...results,[searchKey]:{ hits: updatedHits, page }
-      }
+      },
+      isLoading: false
     });
   }
 
@@ -124,6 +128,7 @@ class App extends Component {
       results,
       searchKey,
       error,
+      isLoading,
       } = this.state;
 
     const page = (
@@ -159,17 +164,20 @@ class App extends Component {
             />
         }
         <div className="interactions">
-          <Button onClick={() => 
-            this.fetchSearchTopStories(searchKey, page +1)}>
-            More
-          </Button>
+          { isLoading 
+            ? <Loading/>
+            : <Button onClick={() => 
+              this.fetchSearchTopStories(searchKey, page +1)}
+              >
+              More
+              </Button>
+          }
         </div>
       </div>
     );
   }
 }
 
-export default App; 
 
 
 // added for jest testing
@@ -178,3 +186,5 @@ export {
   Search,
   Table,
 };
+
+export default App; 
