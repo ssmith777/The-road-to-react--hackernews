@@ -2,6 +2,7 @@ import React from 'react'
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import Button from '../Buttons/index';
 
 library.add(faSpinner)
 //faSpinner.icon("50px")
@@ -19,3 +20,11 @@ export const Loading = () => (
       loading... <FontAwesomeIcon size="2x" icon="spinner" />
     </div>
   )
+
+// High order component
+export const withLoading = (Component) => ({ isLoading, ...rest }) =>
+isLoading
+  ? <Loading/>
+  : <Component {...rest} />
+
+export const ButtonWithLoading = withLoading(Button);

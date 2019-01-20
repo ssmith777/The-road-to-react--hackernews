@@ -17,6 +17,8 @@ import {
   PARAM_PAGE,
   PARAM_HPP,
   Loading,
+  withLoading,
+  ButtonWithLoading,
  } from '../constants';
 
   
@@ -163,15 +165,13 @@ class App extends Component {
               onDismiss={this.onDismiss} 
             />
         }
-        <div className="interactions">
-          { isLoading 
-            ? <Loading/>
-            : <Button onClick={() => 
-              this.fetchSearchTopStories(searchKey, page +1)}
-              >
-              More
-              </Button>
-          }
+        <div className="interactions"> 
+          <ButtonWithLoading
+            isLoading = {isLoading}
+            onClick={() => this.fetchSearchTopStories(searchKey, page +1)}
+            >
+             More
+          </ButtonWithLoading>   
         </div>
       </div>
     );
