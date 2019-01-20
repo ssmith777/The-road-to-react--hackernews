@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './index.css';
-
+//import { sortBy } from 'lodash'
+ 
 // import our stateless components
 import Button from '../Buttons/index';
 import Table from '../Table/index';
@@ -16,8 +17,6 @@ import {
   PARAM_SEARCH,
   PARAM_PAGE,
   PARAM_HPP,
-  Loading,
-  withLoading,
   ButtonWithLoading,
  } from '../constants';
 
@@ -34,6 +33,8 @@ class App extends Component {
       searchTerm: DEFAULT_QUERY,
       error: null,
       isLoading: false,
+      sortKey: 'NONE',
+      isSortReverse: false,
     };
 
     this.needsToSearchTopStories = this.needsToSearchTopStories.bind(this);
@@ -42,8 +43,14 @@ class App extends Component {
     this.onSearchChange = this.onSearchChange.bind(this);
     this.onSearchSubmit = this.onSearchSubmit.bind(this);
     this.onDismiss = this.onDismiss.bind(this);
+    this.onSort = this.onSort.bind(this);
 
   } 
+  // sort class method to set local component state
+  onSort(sortKey) {
+    const isSortReverse = this.state.sortKey === sortKey && !this.state.isSortReverse;
+    this.setState({sortKey,isSortReverse});
+  }
 
   // axios fetch
   fetchSearchTopStories(searchTerm, page = 0) {
@@ -131,6 +138,8 @@ class App extends Component {
       searchKey,
       error,
       isLoading,
+      sortKey,
+      isSortReverse,
       } = this.state;
 
     const page = (
@@ -162,6 +171,9 @@ class App extends Component {
             </div>
           : <Table 
               list={list} 
+              sortKey={sortKey}
+              isSortReverse={isSortReverse}
+              onSort={this.onSort}
               onDismiss={this.onDismiss} 
             />
         }
