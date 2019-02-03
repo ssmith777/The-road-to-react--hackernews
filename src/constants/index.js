@@ -17,6 +17,19 @@ export const PARAM_PAGE = 'page=';
 export const PARAM_HPP = 'hitsPerPage=';
 export const DEFAULT_HPP = '10';
 
+export const largeColumn = {
+  width: '40%',
+}
+
+export const midColumn = {
+width: '30%',
+}
+
+export const smallColumn = {
+width: '10%'
+}
+
+
 
 export const Loading = () => (
     <div>
@@ -52,10 +65,6 @@ export const Sort =({
   }) => {
   
   const sortClass = classNames( 'button-inline', {'button-active': sortKey === activeSortKey});
-
-  // if (sortKey === activeSortKey) {
-  //   sortClass.push('button-active');
-  // }
 
   return (
   <Button

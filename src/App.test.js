@@ -5,6 +5,7 @@ import Enzyme, {shallow,mount} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import App, {Search, Button, Table } from './App';
 
+
 Enzyme.configure({adapter: new Adapter() });
 
 describe('App', () => {
@@ -54,30 +55,30 @@ describe('Button',  () => {
 });
 
 
-describe('Table',  () => {
+// describe('Table',  () => {
 
-  const props = {
-    list: [ {title: '1', author: '1', num_comments: 1, points: 2, objectID: 'y'},
-    {title: '2', author: '2', num_comments: 1, points: 2, objectID: 'z'},
-    ],
-  };
+//   const props = {
+//     list: [ {title: '1', author: '1', num_comments: 1, points: 2, objectID: 'y'},
+//     {title: '2', author: '2', num_comments: 1, points: 2, objectID: 'z'},
+//     ],
+//   };
   
-  it('renders without crashing', () => {
-    const div = document.createElement('div');
-    ReactDOM.render(<Table { ...props}/>,div);
-    ReactDOM.unmountComponentAtNode(div);
-  });
+//   it('renders without crashing', () => {
+//     const div = document.createElement('div');
+//     ReactDOM.render(<Table { ...props}/>,div);
+//     ReactDOM.unmountComponentAtNode(div);
+//   });
 
-  test('has a valid snapshot', () => {
-    const component = renderer.create(<Table {...props}/>);
-    const tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
-  });
+//   test('has a valid snapshot', () => {
+//     const component = renderer.create(<Table {...props}/>);
+//     const tree = component.toJSON();
+//     expect(tree).toMatchSnapshot();
+//   });
 
-  it('shows two items in list', () => {
-    const element = mount(<Table {...props}/>);
-    expect(element.find('.table-row').length).toBe(2);
-  });
+//   it('shows two items in list', () => {
+//     const element = mount(<Table {...props}/>);
+//     expect(element.find('.table-row').length).toBe(2) ;
+//   });
 
 
-});
+// });
