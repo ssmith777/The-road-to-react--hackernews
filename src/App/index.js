@@ -20,6 +20,26 @@ import {
   ButtonWithLoading,
  } from '../constants';
 
+
+const updateSearchTopStoriesState = (hits, page) => (prevState) => {
+  const { searchKey, results} = prevState;
+
+  const oldHits = results && results[searchKey]
+    ? results[searchKey].hits
+    : [];
+
+  const updatedHits = [
+    ...oldHits,
+    ...hits
+  ];
+  return {
+    results: {
+      ...results,[searchKey]:{ hits: updatedHits, page }
+    },
+    isLoading: false
+  };
+}
+
   
 class App extends Component {
   _isMounted = false;
@@ -41,11 +61,6 @@ class App extends Component {
     this.onSearchSubmit = this.onSearchSubmit.bind(this);
     this.onSearchChange = this.onSearchChange.bind(this);
     this.needsToSearchTopStories = this.needsToSearchTopStories.bind(this);
-    
-   
-   
-    
-    
 
   } 
   
@@ -65,25 +80,10 @@ class App extends Component {
 
   setSearchTopStories(result) {
     const { hits, page } = result;
-    const { searchKey, results} = this.state;
-
-    const oldHits = results && results[searchKey]
-      ? results[searchKey].hits
-      : [];
- 
-    const updatedHits = [
-      ...oldHits,
-      ...hits
-    ];
-
-    this.setState({
-      results: {
-        ...results,[searchKey]:{ hits: updatedHits, page }
-      },
-      isLoading: false
-    });
+    this.setState(updateSearchTopStoriesState(hits,page));
   }
 
+ 
   componentDidMount() {
     this._isMounted = true;
     const { searchTerm } = this.state;
@@ -108,7 +108,7 @@ class App extends Component {
   onSearchChange(event) {
     this.setState({searchTerm: event.target.value})
   }
-
+  
   onDismiss(id) {
 
     const { searchKey, results } = this.state; 
