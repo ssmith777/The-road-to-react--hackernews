@@ -33,24 +33,22 @@ class App extends Component {
       searchTerm: DEFAULT_QUERY,
       error: null,
       isLoading: false,
-      sortKey: 'NONE',
-      isSortReverse: false,
     };
 
-    this.needsToSearchTopStories = this.needsToSearchTopStories.bind(this);
     this.setSearchTopStories = this.setSearchTopStories.bind(this);
     this.fetchSearchTopStories = this.fetchSearchTopStories.bind(this);
-    this.onSearchChange = this.onSearchChange.bind(this);
-    this.onSearchSubmit = this.onSearchSubmit.bind(this);
     this.onDismiss = this.onDismiss.bind(this);
-    this.onSort = this.onSort.bind(this);
+    this.onSearchSubmit = this.onSearchSubmit.bind(this);
+    this.onSearchChange = this.onSearchChange.bind(this);
+    this.needsToSearchTopStories = this.needsToSearchTopStories.bind(this);
+    
+   
+   
+    
+    
 
   } 
-  // sort class method to set local component state
-  onSort(sortKey) {
-    const isSortReverse = this.state.sortKey === sortKey && !this.state.isSortReverse;
-    this.setState({sortKey,isSortReverse});
-  }
+  
 
   // axios fetch
   fetchSearchTopStories(searchTerm, page = 0) {
@@ -137,9 +135,7 @@ class App extends Component {
       results,
       searchKey,
       error,
-      isLoading,
-      sortKey,
-      isSortReverse,
+      isLoading
       } = this.state;
 
     const page = (
@@ -171,9 +167,6 @@ class App extends Component {
             </div>
           : <Table 
               list={list} 
-              sortKey={sortKey}
-              isSortReverse={isSortReverse}
-              onSort={this.onSort}
               onDismiss={this.onDismiss} 
             />
         }

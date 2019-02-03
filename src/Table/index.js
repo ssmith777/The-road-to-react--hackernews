@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import Button from '../Buttons/index';
 import './index.css';
 import PropTypes from 'prop-types';
@@ -9,13 +9,34 @@ import {Sort, SORTS, smallColumn, midColumn, largeColumn} from '../constants'
 
 
 // functional stateless component
-const Table = ({ 
+class Table extends Component { 
+    constructor(props){
+        super(props);
+        this.state ={
+            sortKey: 'NONE',
+            isSortReverse: false,
+        };
+        this.onSort = this.onSort.bind(this);
+
+        //this.onSort = this.onSort.bind(this);
+    }
+    // sort class method to set local component state
+    onSort(sortKey) {
+        const isSortReverse = this.state.sortKey === sortKey && !this.state.isSortReverse;
+        this.setState({sortKey,isSortReverse});
+    }
+
+    render() {
+    const {
     list,
-    sortKey,
-    isSortReverse,
-    onSort,
     onDismiss 
-    }) => {
+    } = this.props;
+
+    const {
+        sortKey,
+        isSortReverse,
+    } = this.state;
+
     const sortedList = SORTS[sortKey](list);
     const reverseSortedList = isSortReverse
         ? sortedList.reverse()
@@ -26,7 +47,7 @@ const Table = ({
                 <span style={largeColumn}>
                     <Sort 
                         sortKey={'TITLE'}
-                        onSort={onSort}
+                        onSort={this.onSort}
                         activeSortKey={sortKey}
                     >
                     Title
@@ -35,7 +56,7 @@ const Table = ({
                 <span style={midColumn}>
                     <Sort 
                         sortKey={'AUTHOR'}
-                        onSort={onSort}
+                        onSort={this.onSort}
                         activeSortKey={sortKey}
                     >
                     Author
@@ -44,7 +65,7 @@ const Table = ({
                 <span style={smallColumn}>
                     <Sort 
                         sortKey={'COMMENTS'}
-                        onSort={onSort}
+                        onSort={this.onSort}
                         activeSortKey={sortKey}
                     >
                     Comments
@@ -53,7 +74,7 @@ const Table = ({
                 <span style={smallColumn}>
                     <Sort 
                         sortKey={'POINTS'}
-                        onSort={onSort}
+                        onSort={this.onSort}
                         activeSortKey={sortKey}
                     >
                     Points
@@ -80,20 +101,21 @@ const Table = ({
             </div>
             )}
         </div>
-    );
+        );
+    }
 }
 
-Table.prototype = {
-    list: PropTypes.arrayOf(
-        PropTypes.shape({
-            objectID: PropTypes.string.isRequired,
-            author: PropTypes.string,
-            url: PropTypes.string,
-            num_comments: PropTypes.number,
-            points: PropTypes.number,
-        })
-    ).isRequired,
-    onDismiss: PropTypes.func.isRequired,
-};
+// Table.prototype = {
+//     list: PropTypes.arrayOf(
+//         PropTypes.shape({
+//             objectID: PropTypes.string.isRequired,
+//             author: PropTypes.string,
+//             url: PropTypes.string,
+//             num_comments: PropTypes.number,
+//             points: PropTypes.number,
+//         })
+//     ).isRequired,
+//     onDismiss: PropTypes.func.isRequired,
+// };
 
 export default Table;
