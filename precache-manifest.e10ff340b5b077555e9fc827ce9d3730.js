@@ -16,7 +16,7 @@ self.__precacheManifest = [
     "url": "/The-road-to-react--hackernews/static/js/runtime~main.8148730c.js"
   },
   {
-    "revision": "71b3fedfab27859e9adad63ec6d0fd39",
+    "revision": "8c3dc4c96c28678ff28e295febd35dd4",
     "url": "/The-road-to-react--hackernews/index.html"
   }
 ];

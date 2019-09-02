@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/The-road-to-react--hackernews/precache-manifest.03cd07de32fddbbe32f797a5cdfbfb7f.js"
+  "/The-road-to-react--hackernews/precache-manifest.e10ff340b5b077555e9fc827ce9d3730.js"
 );
 
 workbox.clientsClaim();
