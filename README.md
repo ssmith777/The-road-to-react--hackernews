@@ -12,4 +12,4 @@ Tons of great and relative articles
 
 ##### - Blog: https://www.robinwieruch.de/blog
 
-note: If your new to GraphQL, is book "The Road to is really a great book to start with as well
+Side Note: If your new to GraphQL, His book "The Road to GraphQL" is really a great book to start with as well
